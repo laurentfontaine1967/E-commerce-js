@@ -1,8 +1,11 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Register = () => {
+  let history = useNavigate();
   const [data, setData] = useState({
     first_name: "",
     last_name: "",
@@ -24,6 +27,16 @@ const Register = () => {
     };
 
     console.log(sendData);
+    axios
+      .post("http://localhost/ecor/register.php", sendData)
+      .then((result) => {
+        if (result.data.Status == "Invalid") {
+          alert("Invalid User ");
+        } else {
+          alert("Register Successfully");
+          history("/home");
+        }
+      });
   };
   return (
     <div class="container mt-5">
@@ -72,6 +85,14 @@ const Register = () => {
             value={data.password}
           />
         </Form.Group>
+        <button
+          type="submit"
+          name="submit"
+          value="Register"
+          class="btn btn-primary"
+        >
+          Enregister
+        </button>
       </Form>
     </div>
   );
