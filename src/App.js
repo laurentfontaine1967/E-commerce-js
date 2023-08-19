@@ -4,7 +4,8 @@ import Header from "./Component/Header";
 import Home from "./Component/Home";
 import Login from "./Component/Login";
 import Register from "./Component/Register";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Dashboard from "./Component/Dashboard";
+import { Routes, Route } from "react-router-dom";
 <link
   rel="stylesheet"
   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -12,17 +13,20 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
   crossorigin="anonymous"
 />;
 // https://www.youtube.com/watch?v=nmCeSPGcBnY&ab_channel=TutorialRays
+
 function App() {
   return (
     <div className="App">
       <Header />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </BrowserRouter>
+
+      {/* <BrowserRouter> */}
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+      {/* </BrowserRouter> */}
     </div>
   );
 }

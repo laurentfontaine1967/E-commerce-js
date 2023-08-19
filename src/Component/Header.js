@@ -1,10 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function Header() {
+const Header = () => {
+  const [auth, setAuth] = useState("");
+  const [user, setUser] = useState("");
+
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    var auth = window.localStorage.getItem("email");
+    var userName = window.localStorage.getItem("userName");
+
+    if (auth === null) {
+      navigate("/login");
+    }
+    setAuth(auth);
+    setUser(userName);
+  }, []);
+
+  const LogOut = () => {
+    localStorage.removeItem("email");
+    localStorage.clear();
+    navigate("/login");
+  };
+
   const navstyle = {
     color: "white",
   };
@@ -13,7 +37,7 @@ function Header() {
     <Navbar bg="dark" expand="lg">
       <Container>
         <Navbar.Brand href="/home" style={navstyle}>
-          Navbar
+          Home
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -24,6 +48,12 @@ function Header() {
             <Nav.Link href="/register" style={navstyle}>
               Register
             </Nav.Link>
+
+            <Nav.Link to="" style={navstyle} onClick={LogOut}>
+              <span>{user}|</span>
+              LogOut
+            </Nav.Link>
+
             {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
@@ -40,6 +70,6 @@ function Header() {
       </Container>
     </Navbar>
   );
-}
+};
 
 export default Header;

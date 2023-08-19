@@ -26,17 +26,33 @@ const Register = () => {
       password: data.password,
     };
 
+    if (
+      sendData.first_name == "" ||
+      sendData.last_name == "" ||
+      sendData.email == "" ||
+      sendData.password == ""
+    ) {
+      alert("Please fill all the fields");
+    }
     console.log(sendData);
-    axios
-      .post("http://localhost/ecor/register.php", sendData)
-      .then((result) => {
-        if (result.data.Status == "Invalid") {
-          alert("Invalid User ");
-        } else {
-          alert("Register Successfully");
-          history("/home");
-        }
-      });
+    if (
+      sendData.first_name.length > 0 &&
+      sendData.last_name.length > 0 &&
+      sendData.email.length > 0 &&
+      sendData.password.length > 0
+    ) {
+      axios
+
+        .post("http://localhost/ecor/register.php", sendData)
+        .then((result) => {
+          if (result.data.Status == "Invalid") {
+            alert("Invalid User ");
+          } else {
+            alert("Register Successfully");
+            history("/home");
+          }
+        });
+    }
   };
   return (
     <div class="container mt-5">
